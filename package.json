@@ -11,6 +11,7 @@
     "start": "grunt"
   },
   "dependencies": {
+    "express": "~4.12.3",
     "rpi-gpio": "~0.5.1"
   },
   "devDependencies": {

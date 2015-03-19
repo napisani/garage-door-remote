@@ -1,0 +1,4 @@
+{
+  "runningOnPi" : false,
+  "inputToGPIO" : [11, 15, 18, 22]
+}
