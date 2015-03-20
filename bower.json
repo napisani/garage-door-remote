@@ -1,0 +1,26 @@
+{
+  "name": "garage-door-remote",
+  "version": "0.0.1",
+  "homepage": "https://github.com/napisani/garage-door-remote",
+  "authors": [
+    "Nick Pisani <napisani@yahoo.com>"
+  ],
+  "description": "webapp used to remotely open a series of garage doors (intended to run on a raspberry pi)",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "garage",
+    "door",
+    "pi",
+    "remote"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
