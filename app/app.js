@@ -10,6 +10,7 @@ var webapp = express();
 webapp.get('/door/:doorNumber', function(req, resp){
     var doorNumber = req.params.doorNumber;
     console.log("toggling door: " + doorNumber);
+    resp.statusCode = 400;
     resp.send();
 });
 

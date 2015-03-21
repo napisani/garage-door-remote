@@ -2,11 +2,49 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garage Door Remote</title>
+    <link rel="stylesheet" href="lib/foundation/css/normalize.css"/>
+    <link rel="stylesheet" href="lib/foundation/css/foundation.css"/>
+    <link rel="stylesheet" href="lib/foundation-icons/foundation_icons_general/stylesheets/general_foundicons.css">
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="lib/foundation-icons/foundation_icons_general/stylesheets/general_foundicons_ie7.css">
+    <![endif]-->
+
+    <script src="lib/foundation/js/vendor/modernizr.js"></script>
 </head>
 <body>
-    <h1>Garage Door Remote</h1>
+    <div class="row">
+        <div class="large-7 small columns end">
+            <h1><i class="foundicon-home"></i> Garage Door Remote</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div id="alert-row" class="large-6 small columns end">
 
-    <a href="/door/1">Door 1</a> <a href="/door/2">Door 2</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="button-group medium-2 columns">
+            <a class="btn-door button radius " href="#" data-href="/door/1"> <i class="foundicon-home"></i> Door 1</a>
+        </div>
+        <div class="button-group medium-2 columns">
+            <a class="btn-door button radius " href="#" data-href="/door/2"><i class="foundicon-home"></i> Door 2</a>
+        </div>
+
+        <!-- save this for when I finally add an automatic opener to the third bay ;) -->
+        <!--
+        <div class="button-group medium-2 columns end">
+            <a class="btn-door button radius " href="#" data-href="/door/3"><i class="foundicon-home"></i> Door 3</a>
+        </div>
+        -->
+    </div>
+    <script src="lib/foundation/js/vendor/jquery.js"></script>
+    <script src="lib/foundation/js/foundation.min.js"></script>
+    <script src="lib/foundation/js/foundation/foundation.alert.js"></script>
+    <script src="js/open-door-client.js" />
+    <script>
+        $(document).foundation();
+    </script>
 </body>
 </html>
