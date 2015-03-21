@@ -1,30 +1,30 @@
-FROM dockerfile/nodejs
 
-MAINTAINER napisani
+FROM resin/raspbian
 
-WORKDIR /home/garage-door-remote
 
-# Install Mean.JS Prerequisites
-RUN npm install -g grunt-cli
-RUN npm install -g bower
+# Install Python.
+RUN \
+    apt-get update && \
+    apt-get install -y python python-dev python-pip python-virtualenv && \
+    rm -rf /var/lib/apt/lists/* \
+# Install node
+    cd /tmp && \
+    wget http://nodejs.org/dist/node-latest.tar.gz && \
+    tar xvzf node-latest.tar.gz && \
+    rm -f node-latest.tar.gz && \
+    cd node-v* && \
+    ./configure && \
+    CXX="g++ -Wno-unused-local-typedefs" make && \
+    CXX="g++ -Wno-unused-local-typedefs" make install && \
+    cd /tmp && \
+    rm -rf /tmp/node-v* && \
+    npm install -g npm && \
+    printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
 
-# Install Mean.JS packages
-ADD package.json /home/garage-door-remote/package.json
-RUN npm install
 
-# Manually trigger bower. Why doesnt this work via npm install?
-ADD .bowerrc /home/garage-door-remote/.bowerrc
-ADD bower.json /home/garage-door-remote/bower.json
-RUN bower install --config.interactive=false --allow-root
+# Define working directory.
+WORKDIR /data
 
-# Make everything available for start
-ADD . /home/garage-door-remote
+# Define default command.
+CMD ["bash"]
 
-# currently only works for development
-ENV NODE_ENV development
-
-# Port 3000 for server
-# Port 35729 for livereload
-EXPOSE 3000 35729
-# CMD ["grunt"]
-CMD ["node", "app/app.js"]

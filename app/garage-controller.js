@@ -2,28 +2,35 @@
 /**
  * Created by napisani on 3/18/15.
  */
-
+var gpio = require('rpi-gpio');
 var properties = require('../config/properties.json');
-var inputToGPIO = [11, 15, 18, 22];
+var on = 1;
+var off = 0;
+var inputToGPIOPins = properties.inputToGPIO;
 
-var writeToPin = function (pin, value) {
-    console.log("writing to pin: " + pin + " value: " + value);
-    if(properties.runningOnPi) {
-        gpio.write(pin, value, function (err) {
-            console.log("Working on pin: " + pin);
-            if (err) {
-                throw err;
-            }
-            console.log('Wrote value: ' + value + ' to pin: ' + pin);
-        });
-    }
+module.exports.toggleDoor = function (index) {
+
+    console.log("toggleDoor - index: " + index + ' pin: ' + inputToGPIOPins[index]);
+    gpio.setup(inputToGPIOPins[index], gpio.DIR_OUT, function () {
+        setTimeout(function() {
+            gpio.write(inputToGPIOPins[index], true, function (err) {
+                if (err) {
+                    throw err;
+                }
+                console.log('Written to pin: ' + inputToGPIOPins[index]);
+                setTimeout(function(){
+                    gpio.write(inputToGPIOPins[index], true, function (err) {
+                        if (err) {
+                            throw err;
+                        }
+                    });
+                }, 2000);
+            });
+        }, 2000);
+    });
 };
 
-var setupPins = function (pin) {;
-    console.log('Setting up GPIO pin:' + pin );
-    if(properties.runningOnPi) {
-        gpio.setup(pin, gpio.DIR_OUT, function () {
-            writeToPin(pin, false);
-        });
-    }
-};
+
+
+
+
