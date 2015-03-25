@@ -14,7 +14,9 @@ webapp.get('/door/:doorNumber', function(req, resp){
         console.log("try to toggle door: " + req.params.doorNumber);
         var doorNumber = parseInt(req.params.doorNumber);
         if(doorNumber < parseInt(properties.numberOfDoors)){
-            doorController.toggleDoor(doorNumber);
+            if(!doorController.toggleDoor(doorNumber)){
+                resp.statusCode = 500;
+            }
         } else {
             throw Error('' + doorNumber + ' is greater than ' + properties.numberOfDoors );
         }

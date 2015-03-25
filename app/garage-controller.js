@@ -2,35 +2,39 @@
 /**
  * Created by napisani on 3/18/15.
  */
-var gpio = require('rpi-gpio');
+var gpio = require('rpio');
+gpio.setMode('gpio');
 var properties = require('../config/properties.json');
-var on = 1;
-var off = 0;
 var inputToGPIOPins = properties.inputToGPIO;
+var lastToggled;
 
-module.exports.toggleDoor = function (index) {
-
-    console.log("toggleDoor - index: " + index + ' pin: ' + inputToGPIOPins[index]);
-    gpio.setup(inputToGPIOPins[index], gpio.DIR_OUT, function () {
-        setTimeout(function() {
-            gpio.write(inputToGPIOPins[index], true, function (err) {
-                if (err) {
-                    throw err;
-                }
-                console.log('Written to pin: ' + inputToGPIOPins[index]);
-                setTimeout(function(){
-                    gpio.write(inputToGPIOPins[index], true, function (err) {
-                        if (err) {
-                            throw err;
-                        }
-                    });
-                }, 2000);
-            });
-        }, 2000);
-    });
+var initialize = function () {
+    for (var index in inputToGPIOPins) {
+        gpio.setOutput(inputToGPIOPins[index]);
+        gpio.write(inputToGPIOPins[index], gpio.HIGH);
+    }
 };
 
+var toggleDoor = function (index) {
+    var seconds;
+    console.log("toggleDoor - index: " + index + ' pin: ' + inputToGPIOPins[index]);
+    if(lastToggled){
+        seconds = ((new Date).getTime() - lastToggled.getTime());
+        if(seconds < (properties.pinWriteDelay + 3000)){
+            return false;
+        }
+    }
+    else
+    {
+        lastToggled = new Date();
+    }
+    gpio.write(inputToGPIOPins[index], gpio.LOW);
+    setTimeout(function () {
+        gpio.write(inputToGPIOPins[index], gpio.HIGH);
+    }, properties.pinWriteDelay);
+    return true;
+};
 
+initialize();
 
-
-
+module.exports.toggleDoor = toggleDoor;
