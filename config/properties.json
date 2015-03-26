@@ -1,5 +1,5 @@
 {
-  "runningOnPi" : false,
+  "runningOnPi" : true,
   "inputToGPIO" : [16,20,21,12],
   "numberOfDoors" : 2,
   "pinWriteDelay" : 1000
