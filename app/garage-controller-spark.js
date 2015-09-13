@@ -26,6 +26,7 @@ var toggleDoor = function(index) {
                 console.log('An error occurred calling toggle function:', err);
               } else {
                 console.log('toggle function called succesfully:', data);
+                return true;
               }
             });
           }
