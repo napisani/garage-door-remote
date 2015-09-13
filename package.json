@@ -8,11 +8,11 @@
     "npm": "1.4.x"
   },
   "scripts": {
-    "start": "grunt"
+    "start": "node app/app.js"
   },
   "dependencies": {
     "express": "~4.12.3",
-    "rpio": "~0.4.3"
+    "spark": "~1.0.0"
   },
   "devDependencies": {
 

@@ -1,6 +1,4 @@
 {
-  "runningOnPi" : true,
-  "inputToGPIO" : [16,20,21,12],
   "numberOfDoors" : 2,
-  "pinWriteDelay" : 1000
+  "sparkApiKey": "4690d467b37612437464d5efb4f18e212a4a6d11"
 }
