@@ -8,25 +8,28 @@ var express = require('express');
 var webapp = express();
 
 
-webapp.get('/door/:doorNumber', function(req, resp){
-    try
-    {
+webapp.get('/door/:doorNumber', function (req, resp) {
+    try {
         console.log("try to toggle door: " + req.params.doorNumber);
         var doorNumber = parseInt(req.params.doorNumber);
-        if(doorNumber <= parseInt(properties.numberOfDoors)){
-            if(!doorController.toggleDoor(doorNumber)){
+        if (doorNumber <= parseInt(properties.numberOfDoors)) {
+            doorController.toggleDoor(doorNumber, function () {
+                resp.statusCode = 200;
+                resp.send();
+            }, function () {
                 resp.statusCode = 500;
-            }
+                resp.send();
+            });
         } else {
-            throw Error('' + doorNumber + ' is greater than ' + properties.numberOfDoors );
+            throw Error('' + doorNumber + ' is greater than ' + properties.numberOfDoors);
         }
     }
-    catch(err)
-    {
+    catch (err) {
         console.log(err);
         resp.statusCode = 400;
+        resp.send();
     }
-    resp.send();
+
 });
 
 webapp.use(express.static(__dirname + '/public'));

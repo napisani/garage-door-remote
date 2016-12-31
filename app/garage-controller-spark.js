@@ -3,39 +3,68 @@
  * Created by napisani on 9/4/15.
  */
 
-var Spark = require('spark');
+var Particle = require('particle-api-js');
+var particle = new Particle();
+
+//var Spark = require('spark');
 var Properties = require('../config/properties.json');
-var initialize = function() {};
+var initialize = function () {
+};
 
-var toggleDoor = function(index) {
-  if (Properties["sparkApiKey"]) {
+var toggleDoor = function (index, success, failure) {
+    var token = Properties["sparkApiKey"];
+    if (Properties["sparkApiKey"]) {
+        var devicesPr = particle.listDevices({auth: token});
 
-    Spark.login({
-      accessToken: Properties["sparkApiKey"]
-    }, function(err, body) {
-      if (err) {
-        console.log("ERROR logging in: " + err);
-      } else {
-        console.log('API call login completed on callback:', body);
+        devicesPr.then(
+            function (devices) {
+                console.log('Devices: ', devices);
+                for (var i = 0; i < devices.body.length; i++) {
+                    var dev = devices.body[i];
+                    console.log("Name: " + dev.name + " ID:" + dev.id);
+                    if (dev.name === 'garage-door-bot') {
+                        if (index == 1 || index == 2 || index == 3) {
+                            var fnPr = particle.callFunction({
+                                deviceId: dev.id,
+                                name: 'toggle',
+                                argument: '' + index,
+                                auth: token
+                            });
 
-        Spark.getDevice('garage-door-bot', function(err, device) {
-          console.log('Device name: ' + device.name);
-          if (index == 1 || index == 2 || index == 3) {
-            device.callFunction('toggle', '' + index, function(err, data) {
-              if (err) {
-                console.log('An error occurred calling toggle function:', err);
-              } else {
-                console.log('toggle function called succesfully:', data);
-                return true;
-              }
-            });
-          }
-        });
-      }
-    });
-  } else {
-    console.log('invalid spark api key');
-  }
+                            fnPr.then(
+                                function (data) {
+                                    console.log('Function called succesfully:', data);
+                                    if (success) {
+                                        success();
+                                    }
+                                    //return true;
+                                }, function (err) {
+                                    console.log('An error occurred:', err);
+                                    if (failure) {
+                                        failure();
+                                    }
+                                });
+                        }
+                    }
+                }
+
+
+            },
+            function (err) {
+                console.log('List devices call failed: ', err);
+                if (failure) {
+                    failure();
+                }
+            }
+        );
+
+
+    } else {
+        console.log('invalid spark api key');
+        if (failure) {
+            failure();
+        }
+    }
 };
 
 

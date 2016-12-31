@@ -10,41 +10,46 @@
     <!--[if lt IE 8]>
     <link rel="stylesheet" href="lib/foundation-icons/foundation_icons_general/stylesheets/general_foundicons_ie7.css">
     <![endif]-->
+    <link rel="icon"
+          type="image/png"
+          href="img/favicon.png"/>
 
-    <script src="lib/foundation/js/vendor/modernizr.js"></script>
-</head>
+    <head profile="http://www.w3.org/2005/10/profile">
+
+        <script src="lib/foundation/js/vendor/modernizr.js"></script>
+    </head>
 <body>
-    <div class="row">
-        <div class="large-7 small columns end">
-            <h1><i class="foundicon-home"></i> Garage Door Remote</h1>
-        </div>
+<div class="row">
+    <div class="large-7 small columns end">
+        <h1><i class="foundicon-home"></i> Garage Door Remote</h1>
     </div>
-    <div class="row">
-        <div id="alert-row" class="large-6 small columns end">
+</div>
+<div class="row">
+    <div id="alert-row" class="large-6 small columns end">
 
-        </div>
     </div>
-    <div class="row">
-        <div class="button-group medium-2 columns">
-            <a class="btn-door button radius " href="#" data-href="/door/1"> <i class="foundicon-home"></i> Door 1</a>
-        </div>
-        <div class="button-group medium-2 columns end">
-            <a class="btn-door button radius " href="#" data-href="/door/2"><i class="foundicon-home"></i> Door 2</a>
-        </div>
+</div>
+<div class="row">
+    <div class="button-group medium-2 columns">
+        <a class="btn-door button radius " href="#" data-href="/door/1"> <i class="foundicon-home"></i> Door 1</a>
+    </div>
+    <div class="button-group medium-2 columns end">
+        <a class="btn-door button radius " href="#" data-href="/door/2"><i class="foundicon-home"></i> Door 2</a>
+    </div>
 
-        <!-- save this for when I finally add an automatic opener to the third bay ;) -->
-        <!--
-        <div class="button-group medium-2 columns end">
-            <a class="btn-door button radius " href="#" data-href="/door/3"><i class="foundicon-home"></i> Door 3</a>
-        </div>
-        -->
+    <!-- save this for when I finally add an automatic opener to the third bay ;) -->
+    <!--
+    <div class="button-group medium-2 columns end">
+        <a class="btn-door button radius " href="#" data-href="/door/3"><i class="foundicon-home"></i> Door 3</a>
     </div>
-    <script src="lib/foundation/js/vendor/jquery.js"></script>
-    <script src="lib/foundation/js/foundation.min.js"></script>
-    <script src="lib/foundation/js/foundation/foundation.alert.js"></script>
-    <script src="js/open-door-client.js" />
-    <script>
-        $(document).foundation();
-    </script>
+    -->
+</div>
+<script src="lib/foundation/js/vendor/jquery.js"></script>
+<script src="lib/foundation/js/foundation.min.js"></script>
+<script src="lib/foundation/js/foundation/foundation.alert.js"></script>
+<script src="js/open-door-client.js"/>
+<script>
+    $(document).foundation();
+</script>
 </body>
 </html>
